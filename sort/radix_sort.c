@@ -12,23 +12,10 @@
 
 #include "../push_swap.h"
 
-/* Convertit la pile en tableau d'entiers */
-int	*stack_to_array(t_list *stack, int size)
+/* Compare deux entiers pour qsort */
+static int	compare_ints(const void *a, const void *b)
 {
-	int	*arr;
-	int	i;
-
-	arr = g_malloc(sizeof(int) * size);
-	if (!arr)
-		return (NULL);
-	i = 0;
-	while (stack && i < size)
-	{
-		arr[i] = *(int *)stack->content;
-		stack = stack->next;
-		i++;
-	}
-	return (arr);
+	return (*(int *)a - *(int *)b);
 }
 
 /* Convertit la pile en tableau d'indices normalisés (0 à n-1) */
@@ -60,36 +47,46 @@ int	*index_array(t_list *stack, int size)
 	return (indexed);
 }
 
-/* Traite un bit spécifique du radix sort */
-void	process_bit(t_list **stack_a, t_list **stack_b, int bit_pos, int size)
+/* Remplace les valeurs de la pile par leurs indices normalisés */
+static void	apply_indexed_values(t_list **stack_a, int *indexed, int size)
 {
-	int	i;
-	int	value;
+	t_list	*current;
+	int		i;
 
+	current = *stack_a;
 	i = 0;
-	while (i < size)
+	while (current && i < size)
 	{
-		value = *(int *)(*stack_a)->content;
-		if (((value >> bit_pos) & 1) == 0)
-			pb(stack_a, stack_b);
-		else
-			ra(stack_a, 1);
+		*(int *)current->content = indexed[i];
+		current = current->next;
 		i++;
 	}
 }
 
-/* Algorithme de tri radix principal - version simplifiée */
+/* Exécute l'algorithme radix sort bit par bit */
+static void	execute_radix_bits(t_list **stack_a, t_list **stack_b, int max_bits)
+{
+	int	bit;
+	int	size;
+
+	bit = 0;
+	while (bit < max_bits)
+	{
+		size = get_stack_size(*stack_a);
+		process_bit(stack_a, stack_b, bit, size);
+		while (*stack_b)
+			pa(stack_a, stack_b);
+		bit++;
+	}
+}
+
+/* Algorithme de tri radix principal */
 void	radix_sort(t_list **stack_a, t_list **stack_b)
 {
-	int			size;
-	int			max_bits;
-	int			*indexed;
-	int			bit;
-	int			i;
-	t_list		*current;
+	int	size;
+	int	max_bits;
+	int	*indexed;
 
-	current = *stack_a;
-	i = 0;
 	if (!stack_a || !*stack_a)
 		return ;
 	size = get_stack_size(*stack_a);
@@ -101,20 +98,7 @@ void	radix_sort(t_list **stack_a, t_list **stack_b)
 	indexed = index_array(*stack_a, size);
 	if (!indexed)
 		return ;
-	while (current && i < size)
-	{
-		*(int *)current->content = indexed[i];
-		current = current->next;
-		i++;
-	}
+	apply_indexed_values(stack_a, indexed, size);
 	max_bits = get_max_bits(size - 1);
-	bit = 0;
-	while (bit < max_bits)
-	{
-		size = get_stack_size(*stack_a);
-		process_bit(stack_a, stack_b, bit, size);
-		while (*stack_b)
-			pa(stack_a, stack_b);
-		bit++;
-	}
+	execute_radix_bits(stack_a, stack_b, max_bits);
 }

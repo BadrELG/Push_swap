@@ -12,6 +12,25 @@
 
 #include "../push_swap.h"
 
+/* Convertit la pile en tableau d'entiers */
+int	*stack_to_array(t_list *stack, int size)
+{
+	int	*arr;
+	int	i;
+
+	arr = g_malloc(sizeof(int) * size);
+	if (!arr)
+		return (NULL);
+	i = 0;
+	while (stack && i < size)
+	{
+		arr[i] = *(int *)stack->content;
+		stack = stack->next;
+		i++;
+	}
+	return (arr);
+}
+
 /* Retourne la taille de la pile */
 int	get_stack_size(t_list *stack)
 {
@@ -40,12 +59,6 @@ int	get_max_bits(int max_val)
 	return (bits);
 }
 
-/* Compare deux entiers pour qsort */
-int	compare_ints(const void *a, const void *b)
-{
-	return (*(int *)a - *(int *)b);
-}
-
 /* Vérifie si la pile est triée dans l'ordre croissant */
 int	is_sorted(t_list *stack)
 {
@@ -58,4 +71,22 @@ int	is_sorted(t_list *stack)
 		stack = stack->next;
 	}
 	return (1);
+}
+
+/* Traite un bit spécifique du radix sort */
+void	process_bit(t_list **stack_a, t_list **stack_b, int bit_pos, int size)
+{
+	int	i;
+	int	value;
+
+	i = 0;
+	while (i < size)
+	{
+		value = *(int *)(*stack_a)->content;
+		if (((value >> bit_pos) & 1) == 0)
+			pb(stack_a, stack_b);
+		else
+			ra(stack_a, 1);
+		i++;
+	}
 }

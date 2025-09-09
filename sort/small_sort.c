@@ -67,13 +67,25 @@ void	sort_three(t_list **stack_a)
 		rra(stack_a, 1);
 }
 
+/* Tri optimisé pour 4 éléments */
+void	sort_four(t_list **stack_a, t_list **stack_b)
+{
+	int	min_index;
+
+	min_index = find_min_index(*stack_a);
+	move_to_top(stack_a, min_index);
+	pb(stack_a, stack_b);
+	sort_three(stack_a);
+	pa(stack_a, stack_b);
+}
+
 /* Tri optimisé pour 5 éléments */
 void	sort_five(t_list **stack_a, t_list **stack_b)
 {
 	int	min_index;
 	int	size;
 
-	size = get_list_size(*stack_a);
+	size = get_stack_size(*stack_a);
 	if (size <= 3)
 	{
 		sort_three(stack_a);
@@ -84,7 +96,7 @@ void	sort_five(t_list **stack_a, t_list **stack_b)
 		sort_four(stack_a, stack_b);
 		return ;
 	}
-	while (get_list_size(*stack_a) > 3)
+	while (get_stack_size(*stack_a) > 3)
 	{
 		min_index = find_min_index(*stack_a);
 		move_to_top(stack_a, min_index);
@@ -100,7 +112,7 @@ void	sort_small(t_list **stack_a, t_list **stack_b)
 {
 	int	size;
 
-	size = get_list_size(*stack_a);
+	size = get_stack_size(*stack_a);
 	if (size <= 1)
 		return ;
 	else if (size == 2)

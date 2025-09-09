@@ -43,25 +43,23 @@ t_list	*parse_args(int argc, char **argv);
 /* Fonctions principales de tri (radix_sort.c) */
 void	radix_sort(t_list **stack_a, t_list **stack_b);
 int		*index_array(t_list *stack, int size);
-void	process_bit(t_list **stack_a, t_list **stack_b, int bit_pos, int size);
-int		*stack_to_array(t_list *stack, int size);
 
 /* Fonctions utilitaires (sort_utils.c) */
 int		get_stack_size(t_list *stack);
 int		get_max_bits(int max_val);
-int		compare_ints(const void *a, const void *b);
 int		is_sorted(t_list *stack);
+int		*stack_to_array(t_list *stack, int size);
+void	process_bit(t_list **stack_a, t_list **stack_b, int bit_pos, int size);
 
 /* Fonctions pour petites piles (small_sort.c) */
 void	sort_three(t_list **stack_a);
 void	sort_five(t_list **stack_a, t_list **stack_b);
 void	sort_small(t_list **stack_a, t_list **stack_b);
+void	sort_four(t_list **stack_a, t_list **stack_b);
 int		find_min_index(t_list *stack);
 
 /* Fonctions de mouvement (move_utils.c) */
 void	move_to_top(t_list **stack, int index);
-void	sort_four(t_list **stack_a, t_list **stack_b);
 int		find_index(int *sorted, int size, int value);
-int		get_list_size(t_list *stack);
 
 #endif

@@ -27,26 +27,12 @@ int	find_index(int *sorted, int size, int value)
 	return (-1);
 }
 
-/* Calcule la taille de la pile (version alternative) */
-int	get_list_size(t_list *stack)
-{
-	int	size;
-
-	size = 0;
-	while (stack)
-	{
-		size++;
-		stack = stack->next;
-	}
-	return (size);
-}
-
 /* Déplace un élément à l'index donné vers le top de manière optimale */
 void	move_to_top(t_list **stack, int index)
 {
 	int	size;
 
-	size = get_list_size(*stack);
+	size = get_stack_size(*stack);
 	if (index <= size / 2)
 	{
 		while (index > 0)
@@ -64,16 +50,4 @@ void	move_to_top(t_list **stack, int index)
 			index--;
 		}
 	}
-}
-
-/* Tri optimisé pour 4 éléments */
-void	sort_four(t_list **stack_a, t_list **stack_b)
-{
-	int	min_index;
-
-	min_index = find_min_index(*stack_a);
-	move_to_top(stack_a, min_index);
-	pb(stack_a, stack_b);
-	sort_three(stack_a);
-	pa(stack_a, stack_b);
 }
