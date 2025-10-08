@@ -6,7 +6,7 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:00:00 by badr              #+#    #+#             */
-/*   Updated: 2025/10/08 14:44:01 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/08 15:29:33 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,18 @@ void	sort_three(t_list **stack_a)
 		sa(stack_a, 1);
 	else if (a > b && b > c)
 	{
-		/* Cas 3 2 1 : swap puis reverse rotate pour remettre dans l'ordre */
 		sa(stack_a, 1);
 		rra(stack_a, 1);
 	}
 	else if (a > b && b < c && a > c)
-	{
-		/* Cas 3 1 2 : rotation simple met 1 en tête */
 		ra(stack_a, 1);
-	}
 	else if (a < b && b > c && a < c)
 	{
-		/* Cas 2 3 1 : swap puis rotation vers le haut */
 		sa(stack_a, 1);
 		ra(stack_a, 1);
 	}
 	else if (a < b && b > c && a > c)
-	{
-		/* Cas 2 1 3 : reverse rotate pour replacer le minimum */
 		rra(stack_a, 1);
-	}
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 13:36:43 by bael-gho          #+#    #+#             */
-/*   Updated: 2025/10/08 14:55:22 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/08 15:41:36 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(const char *s, char c);
+void		ft_split_free(char **split);
+void		ft_sort_int_tab(int *tab, int size);
 char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void		*ft_memset(void *s, int c, size_t n);

@@ -6,7 +6,7 @@
 #    By: badr <badr@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/06 09:55:00 by badr              #+#    #+#              #
-#    Updated: 2025/08/09 23:29:29 by badr             ###   ########.fr        #
+#    Updated: 2025/10/08 19:59:33 by badr             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,9 @@ SRCS = main.c \
        Commands/rev_rotate.c \
        Commands/swap.c \
        sort/radix_sort.c \
+       sort/radix_utils.c \
        sort/small_sort.c \
-       sort/sort_utils.c \
-       sort/move_utils.c
+       sort/stack_utils.c
 
 OBJS = ${SRCS:.c=.o}
 

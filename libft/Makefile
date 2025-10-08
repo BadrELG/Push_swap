@@ -36,6 +36,8 @@ SRCS =  ft_isalpha.c \
 		ft_strmapi.c \
 		ft_strjoin.c \
 		ft_split.c \
+		ft_split_free.c \
+		ft_sort_int_tab.c \
 		ft_itoa.c \
 		ft_strtrim.c \
 		ft_convert.c \
