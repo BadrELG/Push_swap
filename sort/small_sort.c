@@ -6,13 +6,13 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:00:00 by badr              #+#    #+#             */
-/*   Updated: 2025/09/06 16:00:00 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/08 14:44:01 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-/* Trouve l'index du minimum dans la pile */
+/* Identifie l'index du plus petit élément dans la pile courante */
 int	find_min_index(t_list *stack)
 {
 	int	min_val;
@@ -37,7 +37,7 @@ int	find_min_index(t_list *stack)
 	return (min_index);
 }
 
-/* Tri optimisé pour 3 éléments - gère tous les cas possibles */
+/* Traite exhaustivement les permutations possibles sur trois éléments */
 void	sort_three(t_list **stack_a)
 {
 	int	a;
@@ -53,39 +53,53 @@ void	sort_three(t_list **stack_a)
 		sa(stack_a, 1);
 	else if (a > b && b > c)
 	{
+		/* Cas 3 2 1 : swap puis reverse rotate pour remettre dans l'ordre */
 		sa(stack_a, 1);
 		rra(stack_a, 1);
 	}
 	else if (a > b && b < c && a > c)
+	{
+		/* Cas 3 1 2 : rotation simple met 1 en tête */
 		ra(stack_a, 1);
+	}
 	else if (a < b && b > c && a < c)
 	{
+		/* Cas 2 3 1 : swap puis rotation vers le haut */
 		sa(stack_a, 1);
 		ra(stack_a, 1);
 	}
 	else if (a < b && b > c && a > c)
+	{
+		/* Cas 2 1 3 : reverse rotate pour replacer le minimum */
 		rra(stack_a, 1);
+	}
 }
 
-/* Tri optimisé pour 4 éléments */
+/*
+** Pousse le minimum dans stack_b, trie les trois restants puis réinsère.
+** Limite les opérations en réduisant le problème à sort_three.
+*/
 void	sort_four(t_list **stack_a, t_list **stack_b)
 {
 	int	min_index;
 
 	min_index = find_min_index(*stack_a);
-	move_to_top(stack_a, min_index);
+	rotate_element_to_top(stack_a, min_index);
 	pb(stack_a, stack_b);
 	sort_three(stack_a);
 	pa(stack_a, stack_b);
 }
 
-/* Tri optimisé pour 5 éléments */
+/*
+** Écarte successivement les deux plus petits éléments, trie la base de trois
+** puis remonte les éléments isolés dans l'ordre correct.
+*/
 void	sort_five(t_list **stack_a, t_list **stack_b)
 {
 	int	min_index;
 	int	size;
 
-	size = get_stack_size(*stack_a);
+	size = ft_lstsize(*stack_a);
 	if (size <= 3)
 	{
 		sort_three(stack_a);
@@ -96,10 +110,10 @@ void	sort_five(t_list **stack_a, t_list **stack_b)
 		sort_four(stack_a, stack_b);
 		return ;
 	}
-	while (get_stack_size(*stack_a) > 3)
+	while (ft_lstsize(*stack_a) > 3)
 	{
 		min_index = find_min_index(*stack_a);
-		move_to_top(stack_a, min_index);
+		rotate_element_to_top(stack_a, min_index);
 		pb(stack_a, stack_b);
 	}
 	sort_three(stack_a);
@@ -107,12 +121,15 @@ void	sort_five(t_list **stack_a, t_list **stack_b)
 		pa(stack_a, stack_b);
 }
 
-/* Fonction dispatcher principale pour les petites piles */
+/*
+** Dirige vers la stratégie adaptée selon la taille de la pile.
+** Évite d'appeler le radix sort pour des cas déjà optimisés.
+*/
 void	sort_small(t_list **stack_a, t_list **stack_b)
 {
 	int	size;
 
-	size = get_stack_size(*stack_a);
+	size = ft_lstsize(*stack_a);
 	if (size <= 1)
 		return ;
 	else if (size == 2)

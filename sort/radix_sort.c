@@ -6,7 +6,7 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:00:00 by badr              #+#    #+#             */
-/*   Updated: 2025/09/06 16:00:00 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/08 14:44:01 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,33 @@ static int	compare_ints(const void *a, const void *b)
 	return (*(int *)a - *(int *)b);
 }
 
-/* Convertit la pile en tableau d'indices normalisés (0 à n-1) */
-int	*index_array(t_list *stack, int size)
+/* Libère les tableaux temporaires */
+static void	free_arrays(int *original, int *sorted, int *indexed)
+{
+	if (original)
+		free(original);
+	if (sorted)
+		free(sorted);
+	if (indexed)
+		free(indexed);
+}
+
+/*
+** Crée un tableau d'indices normalisés (0..n-1) basé sur l'ordre trié.
+** Permet d'appliquer un radix sort sur des valeurs compactes.
+*/
+int	*normalize_stack_indices(t_list *stack, int size)
 {
 	int	*original;
 	int	*sorted;
 	int	*indexed;
 	int	i;
 
-	original = stack_to_array(stack, size);
-	sorted = g_malloc(sizeof(int) * size);
-	indexed = g_malloc(sizeof(int) * size);
+	original = convert_stack_to_array(stack, size);
+	sorted = malloc(sizeof(int) * size);
+	indexed = malloc(sizeof(int) * size);
 	if (!original || !sorted || !indexed)
-		return (NULL);
+		return (free_arrays(original, sorted, indexed), NULL);
 	i = 0;
 	while (i < size)
 	{
@@ -41,14 +55,19 @@ int	*index_array(t_list *stack, int size)
 	i = 0;
 	while (i < size)
 	{
-		indexed[i] = find_index(sorted, size, original[i]);
+		indexed[i] = find_value_index_in_sorted(sorted, size, original[i]);
 		i++;
 	}
+	free(original);
+	free(sorted);
 	return (indexed);
 }
 
-/* Remplace les valeurs de la pile par leurs indices normalisés */
-static void	apply_indexed_values(t_list **stack_a, int *indexed, int size)
+/*
+** Remplace les valeurs originales de la pile par les indices normalisés.
+** Chaque valeur prend sa position triée : simplifie la comparaison bit à bit.
+*/
+static void	apply_normalized_indices(t_list **stack_a, int *indexed, int size)
 {
 	t_list	*current;
 	int		i;
@@ -63,8 +82,12 @@ static void	apply_indexed_values(t_list **stack_a, int *indexed, int size)
 	}
 }
 
-/* Exécute l'algorithme radix sort bit par bit */
-static void	execute_radix_bits(t_list **stack_a, t_list **stack_b, int max_bits)
+/*
+** Parcourt chaque bit significatif et place les valeurs en conséquence.
+** Après chaque passe, on rapatrie tout de stack_b vers stack_a.
+*/
+static void	perform_radix_bit_passes(t_list **stack_a, t_list **stack_b,
+	int max_bits)
 {
 	int	bit;
 	int	size;
@@ -72,8 +95,8 @@ static void	execute_radix_bits(t_list **stack_a, t_list **stack_b, int max_bits)
 	bit = 0;
 	while (bit < max_bits)
 	{
-		size = get_stack_size(*stack_a);
-		process_bit(stack_a, stack_b, bit, size);
+		size = ft_lstsize(*stack_a);
+		sort_current_bit_position(stack_a, stack_b, bit, size);
 		while (*stack_b)
 			pa(stack_a, stack_b);
 		bit++;
@@ -89,16 +112,17 @@ void	radix_sort(t_list **stack_a, t_list **stack_b)
 
 	if (!stack_a || !*stack_a)
 		return ;
-	size = get_stack_size(*stack_a);
+	size = ft_lstsize(*stack_a);
 	if (size <= 5)
 	{
 		sort_small(stack_a, stack_b);
 		return ;
 	}
-	indexed = index_array(*stack_a, size);
+	indexed = normalize_stack_indices(*stack_a, size);
 	if (!indexed)
 		return ;
-	apply_indexed_values(stack_a, indexed, size);
-	max_bits = get_max_bits(size - 1);
-	execute_radix_bits(stack_a, stack_b, max_bits);
+	apply_normalized_indices(stack_a, indexed, size);
+	free(indexed);
+	max_bits = calculate_required_bits(size - 1);
+	perform_radix_bit_passes(stack_a, stack_b, max_bits);
 }

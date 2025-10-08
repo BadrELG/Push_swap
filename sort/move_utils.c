@@ -6,14 +6,17 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:00:00 by badr              #+#    #+#             */
-/*   Updated: 2025/09/06 16:00:00 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/08 14:44:01 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-/* Trouve l'index d'une valeur dans un tableau trié */
-int	find_index(int *sorted, int size, int value)
+/*
+** Recherche l'index correspondant à value dans le tableau trié.
+** Utilisé pour associer chaque valeur à sa position normalisée.
+*/
+int	find_value_index_in_sorted(int *sorted, int size, int value)
 {
 	int	i;
 
@@ -27,12 +30,15 @@ int	find_index(int *sorted, int size, int value)
 	return (-1);
 }
 
-/* Déplace un élément à l'index donné vers le top de manière optimale */
-void	move_to_top(t_list **stack, int index)
+/*
+** Ramène l'élément ciblé en tête de pile via la rotation la plus courte.
+** Choisit ra ou rra en fonction de la moitié dans laquelle l'élément se trouve.
+*/
+void	rotate_element_to_top(t_list **stack, int index)
 {
 	int	size;
 
-	size = get_stack_size(*stack);
+	size = ft_lstsize(*stack);
 	if (index <= size / 2)
 	{
 		while (index > 0)
