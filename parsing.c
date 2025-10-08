@@ -6,7 +6,7 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:55:00 by badr              #+#    #+#             */
-/*   Updated: 2025/09/21 21:00:35 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/08 14:55:22 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,43 +31,6 @@ int	valid_nbr(char *str)
 		i++;
 	}
 	return (1);
-}
-
-/* Convertit une chaîne en long avec détection de débordement */
-long	convert_with_overflow_check(char *str, int start, int sign, int *error)
-{
-	long	result;
-
-	result = 0;
-	while (str[start])
-	{
-		result = result * 10 + (str[start] - '0');
-		if ((sign == 1 && result > INT_MAX)
-			|| (sign == -1 && result * sign < INT_MIN))
-		{
-			*error = 1;
-			return (0);
-		}
-		start++;
-	}
-	return (result * sign);
-}
-
-/* Convertit une chaîne en entier avec gestion d'erreur */
-int	ft_atoi_error(char *str, int *error)
-{
-	int		sign;
-	int		i;
-
-	sign = 1;
-	i = 0;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	return ((int)convert_with_overflow_check(str, i, sign, error));
 }
 
 /* Vérifie s'il y a des doublons dans la pile */
