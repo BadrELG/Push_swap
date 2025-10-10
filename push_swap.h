@@ -6,7 +6,7 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:52:00 by badr              #+#    #+#             */
-/*   Updated: 2025/10/08 19:59:33 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/10 13:58:37 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,15 @@ t_list	*parse_args(int argc, char **argv);
 
 /* Sort */
 
-/* Fonctions principales de tri (radix_sort.c) */
 void	radix_sort(t_list **stack_a, t_list **stack_b);
-
-/* Fonctions utilitaires radix (radix_utils.c) */
 int		*normalize_stack_indices(t_list *stack, int size);
 int		find_value_index_in_sorted(int *sorted, int size, int value);
 int		*convert_stack_to_array(t_list *stack, int size);
 int		calculate_required_bits(int max_val);
-
-/* Fonctions utilitaires pile (stack_utils.c) */
 int		is_stack_sorted(t_list *stack);
 void	sort_current_bit_position(t_list **stack_a, t_list **stack_b,
 			int bit_pos, int size);
 void	rotate_element_to_top(t_list **stack, int index);
-
-/* Fonctions pour petites piles (small_sort.c) */
-void	sort_three(t_list **stack_a);
-void	sort_five(t_list **stack_a, t_list **stack_b);
 void	sort_small(t_list **stack_a, t_list **stack_b);
-void	sort_four(t_list **stack_a, t_list **stack_b);
-int		find_min_index(t_list *stack);
 
 #endif

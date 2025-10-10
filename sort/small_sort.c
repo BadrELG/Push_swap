@@ -6,14 +6,14 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:00:00 by badr              #+#    #+#             */
-/*   Updated: 2025/10/08 15:29:33 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/10 13:53:22 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
 /* Identifie l'index du plus petit élément dans la pile courante */
-int	find_min_index(t_list *stack)
+static int	find_min_index(t_list *stack)
 {
 	int	min_val;
 	int	min_index;
@@ -38,7 +38,7 @@ int	find_min_index(t_list *stack)
 }
 
 /* Traite exhaustivement les permutations possibles sur trois éléments */
-void	sort_three(t_list **stack_a)
+static void	sort_three(t_list **stack_a)
 {
 	int	a;
 	int	b;
@@ -71,7 +71,7 @@ void	sort_three(t_list **stack_a)
 ** Pousse le minimum dans stack_b, trie les trois restants puis réinsère.
 ** Limite les opérations en réduisant le problème à sort_three.
 */
-void	sort_four(t_list **stack_a, t_list **stack_b)
+static void	sort_four(t_list **stack_a, t_list **stack_b)
 {
 	int	min_index;
 
@@ -86,7 +86,7 @@ void	sort_four(t_list **stack_a, t_list **stack_b)
 ** Écarte successivement les deux plus petits éléments, trie la base de trois
 ** puis remonte les éléments isolés dans l'ordre correct.
 */
-void	sort_five(t_list **stack_a, t_list **stack_b)
+static void	sort_five(t_list **stack_a, t_list **stack_b)
 {
 	int	min_index;
 	int	size;
