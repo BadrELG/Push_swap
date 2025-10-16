@@ -6,13 +6,12 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:00:00 by badr              #+#    #+#             */
-/*   Updated: 2025/10/10 13:56:27 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/16 13:54:32 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-/* Libère les tableaux temporaires */
 static void	free_arrays(int *original, int *sorted, int *indexed)
 {
 	if (original)
@@ -23,10 +22,6 @@ static void	free_arrays(int *original, int *sorted, int *indexed)
 		free(indexed);
 }
 
-/*
-** Convertit la pile en tableau d'entiers pour faciliter les traitements.
-** Utile pour normaliser les valeurs avant d'appliquer le radix sort.
-*/
 int	*convert_stack_to_array(t_list *stack, int size)
 {
 	int	*arr;
@@ -45,10 +40,6 @@ int	*convert_stack_to_array(t_list *stack, int size)
 	return (arr);
 }
 
-/*
-** Retourne le nombre de bits nécessaires pour représenter max_val.
-** Permet de connaître le nombre de passes à effectuer en radix sort.
-*/
 int	calculate_required_bits(int max_val)
 {
 	int	bits;
@@ -62,10 +53,6 @@ int	calculate_required_bits(int max_val)
 	return (bits);
 }
 
-/*
-** Recherche l'index correspondant à value dans le tableau trié.
-** Utilisé pour associer chaque valeur à sa position normalisée.
-*/
 int	find_value_index_in_sorted(int *sorted, int size, int value)
 {
 	int	i;
@@ -80,10 +67,6 @@ int	find_value_index_in_sorted(int *sorted, int size, int value)
 	return (-1);
 }
 
-/*
-** Crée un tableau d'indices normalisés (0..n-1) basé sur l'ordre trié.
-** Permet d'appliquer un radix sort sur des valeurs compactes.
-*/
 int	*normalize_stack_indices(t_list *stack, int size)
 {
 	int	*original;

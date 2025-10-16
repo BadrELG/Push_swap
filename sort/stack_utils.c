@@ -6,13 +6,12 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:00:00 by badr              #+#    #+#             */
-/*   Updated: 2025/10/08 19:59:32 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/16 13:53:54 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-/* Vérifie si la pile est déjà triée dans l'ordre croissant */
 int	is_stack_sorted(t_list *stack)
 {
 	if (!stack)
@@ -26,10 +25,6 @@ int	is_stack_sorted(t_list *stack)
 	return (1);
 }
 
-/*
-** Déplace les éléments selon la valeur du bit visé.
-** Les zéros partent dans stack_b, les uns restent via une rotation.
-*/
 void	sort_current_bit_position(t_list **stack_a, t_list **stack_b,
 	int bit_pos, int size)
 {
@@ -48,10 +43,6 @@ void	sort_current_bit_position(t_list **stack_a, t_list **stack_b,
 	}
 }
 
-/*
-** Ramène l'élément ciblé en tête de pile via la rotation la plus courte.
-** Choisit ra ou rra en fonction de la moitié dans laquelle l'élément se trouve.
-*/
 void	rotate_element_to_top(t_list **stack, int index)
 {
 	int	size;

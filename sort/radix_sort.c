@@ -6,16 +6,12 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:00:00 by badr              #+#    #+#             */
-/*   Updated: 2025/10/08 20:00:53 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/16 13:54:42 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-/*
-** Remplace les valeurs originales de la pile par les indices normalisés.
-** Chaque valeur prend sa position triée : simplifie la comparaison bit à bit.
-*/
 static void	apply_normalized_indices(t_list **stack_a, int *indexed, int size)
 {
 	t_list	*current;
@@ -31,10 +27,6 @@ static void	apply_normalized_indices(t_list **stack_a, int *indexed, int size)
 	}
 }
 
-/*
-** Parcourt chaque bit significatif et place les valeurs en conséquence.
-** Après chaque passe, on rapatrie tout de stack_b vers stack_a.
-*/
 static void	perform_radix_bit_passes(t_list **stack_a, t_list **stack_b,
 	int max_bits)
 {
@@ -52,7 +44,6 @@ static void	perform_radix_bit_passes(t_list **stack_a, t_list **stack_b,
 	}
 }
 
-/* Algorithme de tri radix principal */
 void	radix_sort(t_list **stack_a, t_list **stack_b)
 {
 	int	size;

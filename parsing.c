@@ -6,13 +6,12 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:55:00 by badr              #+#    #+#             */
-/*   Updated: 2025/10/08 15:28:24 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/16 13:55:01 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/* Récupère les arguments selon le format d'entrée */
 char	**get_args(int argc, char **argv)
 {
 	char	**args;
@@ -24,7 +23,6 @@ char	**get_args(int argc, char **argv)
 	return (args);
 }
 
-/* Parse et valide tous les arguments d'entrée */
 t_list	*parse_args(int argc, char **argv)
 {
 	char	**args;
@@ -37,7 +35,6 @@ t_list	*parse_args(int argc, char **argv)
 	return (stack_a);
 }
 
-/* Vérifie si une chaîne représente un nombre valide */
 int	valid_nbr(char *str)
 {
 	int	i;
@@ -58,7 +55,6 @@ int	valid_nbr(char *str)
 	return (1);
 }
 
-/* Vérifie s'il y a des doublons dans la pile */
 int	check_doubles(t_list *stack)
 {
 	t_list	*current;
@@ -83,7 +79,6 @@ int	check_doubles(t_list *stack)
 	return (0);
 }
 
-/* Construit la pile A à partir des arguments validés */
 t_list	*build_stack(char **args)
 {
 	t_list	*stack_a;

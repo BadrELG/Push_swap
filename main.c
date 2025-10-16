@@ -6,13 +6,12 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:55:00 by badr              #+#    #+#             */
-/*   Updated: 2025/10/08 15:23:02 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/16 13:53:37 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/* Gère l'erreur et libère la mémoire si nécessaire */
 static int	handle_error(char **args, int need_free)
 {
 	if (need_free)
@@ -21,7 +20,6 @@ static int	handle_error(char **args, int need_free)
 	return (1);
 }
 
-/* Fonction principale : parse, trie et nettoie la mémoire */
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
