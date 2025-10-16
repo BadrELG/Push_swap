@@ -6,13 +6,12 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:53:00 by badr              #+#    #+#             */
-/*   Updated: 2025/08/07 16:05:50 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/16 13:56:12 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-/* Fait tourner la pile A : premier élément devient dernier */
 void	ra(t_list **list_a, int print)
 {
 	t_list	*tmp;
@@ -27,7 +26,6 @@ void	ra(t_list **list_a, int print)
 		ft_putstr_fd("ra\n", 1);
 }
 
-/* Fait tourner la pile B : premier élément devient dernier */
 void	rb(t_list **list_b, int print)
 {
 	t_list	*tmp;
@@ -42,7 +40,6 @@ void	rb(t_list **list_b, int print)
 		ft_putstr_fd("rb\n", 1);
 }
 
-/* Fait tourner simultanément les piles A et B */
 void	rr(t_list **list_a, t_list **list_b)
 {
 	ra(list_a, 0);

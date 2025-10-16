@@ -6,13 +6,12 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:53:00 by badr              #+#    #+#             */
-/*   Updated: 2025/08/07 16:05:29 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/16 13:55:52 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-/* Pousse le premier élément de B vers le haut de A */
 void	pa(t_list **list_a, t_list	**list_b)
 {
 	t_list	*list_tmp;
@@ -25,7 +24,6 @@ void	pa(t_list **list_a, t_list	**list_b)
 	ft_putstr_fd("pa\n", 1);
 }
 
-/* Pousse le premier élément de A vers le haut de B */
 void	pb(t_list **list_a, t_list **list_b)
 {
 	t_list	*list_tmp;

@@ -6,13 +6,12 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:54:00 by badr              #+#    #+#             */
-/*   Updated: 2025/08/07 16:05:24 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/16 13:56:02 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-/* Rotation inverse pile A : dernier élément devient premier */
 void	rra(t_list **list_a, int print)
 {
 	t_list	*before_last;
@@ -33,7 +32,6 @@ void	rra(t_list **list_a, int print)
 		ft_putstr_fd("rra\n", 1);
 }
 
-/* Rotation inverse pile B : dernier élément devient premier */
 void	rrb(t_list **list_b, int print)
 {
 	t_list	*before_last;
@@ -54,7 +52,6 @@ void	rrb(t_list **list_b, int print)
 		ft_putstr_fd("rrb\n", 1);
 }
 
-/* Rotation inverse simultanée des piles A et B */
 void	rrr(t_list **list_a, t_list **list_b)
 {
 	rra(list_a, 0);
