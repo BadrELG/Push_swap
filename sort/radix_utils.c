@@ -6,7 +6,7 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:00:00 by badr              #+#    #+#             */
-/*   Updated: 2025/10/16 13:54:32 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/17 14:08:28 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static void	free_arrays(int *original, int *sorted, int *indexed)
 {
 	if (original)
-		free(original);
+		g_free(original);
 	if (sorted)
-		free(sorted);
+		g_free(sorted);
 	if (indexed)
-		free(indexed);
+		g_free(indexed);
 }
 
 int	*convert_stack_to_array(t_list *stack, int size)
@@ -27,7 +27,7 @@ int	*convert_stack_to_array(t_list *stack, int size)
 	int	*arr;
 	int	i;
 
-	arr = malloc(sizeof(int) * size);
+	arr = g_malloc(sizeof(int) * size);
 	if (!arr)
 		return (NULL);
 	i = 0;
@@ -75,8 +75,8 @@ int	*normalize_stack_indices(t_list *stack, int size)
 	int	i;
 
 	original = convert_stack_to_array(stack, size);
-	sorted = malloc(sizeof(int) * size);
-	indexed = malloc(sizeof(int) * size);
+	sorted = g_malloc(sizeof(int) * size);
+	indexed = g_malloc(sizeof(int) * size);
 	if (!original || !sorted || !indexed)
 		return (free_arrays(original, sorted, indexed), NULL);
 	i = -1;
@@ -89,7 +89,7 @@ int	*normalize_stack_indices(t_list *stack, int size)
 		indexed[i] = find_value_index_in_sorted(sorted, size, original[i]);
 		i++;
 	}
-	free(original);
-	free(sorted);
+	g_free(original);
+	g_free(sorted);
 	return (indexed);
 }

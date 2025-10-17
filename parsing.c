@@ -6,7 +6,7 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:55:00 by badr              #+#    #+#             */
-/*   Updated: 2025/10/16 13:55:01 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/17 14:08:29 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ t_list	*build_stack(char **args)
 		error = 0;
 		if (!valid_nbr(args[i]))
 			return (ft_lstclear(&stack_a, free), NULL);
-		num = malloc(sizeof(int));
+		num = g_malloc(sizeof(int));
 		if (!num)
 			return (ft_lstclear(&stack_a, free), NULL);
 		*num = ft_atoi_safe(args[i], &error);
 		if (error)
-			return (free(num), ft_lstclear(&stack_a, free), NULL);
+			return (g_free(num), ft_lstclear(&stack_a, free), NULL);
 		ft_lstadd_back(&stack_a, ft_lstnew(num));
 		i++;
 	}

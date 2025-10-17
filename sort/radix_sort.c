@@ -6,7 +6,7 @@
 /*   By: badr <badr@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:00:00 by badr              #+#    #+#             */
-/*   Updated: 2025/10/16 13:54:42 by badr             ###   ########.fr       */
+/*   Updated: 2025/10/17 14:08:29 by badr             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	radix_sort(t_list **stack_a, t_list **stack_b)
 	if (!indexed)
 		return ;
 	apply_normalized_indices(stack_a, indexed, size);
-	free(indexed);
+	g_free(indexed);
 	max_bits = calculate_required_bits(size - 1);
 	perform_radix_bit_passes(stack_a, stack_b, max_bits);
 }
